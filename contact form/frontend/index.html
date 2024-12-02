@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venedick Bragas - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="contact-me" class="contact-me content">
+        <h2>Contact Me</h2>
+        <form action="http://localhost:3000/submit" method="POST">
+            <div class="contact-form">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" placeholder="Write your message here..." rows="5" required></textarea>
+                
+                <input type="submit" value="Send Message">
+            </div>
+
+        </form>
+    </section>
+
+    <script>
+        const contactTab = document.querySelector('#contact-me');
+        const fadeInContact = () => {
+            if (!contactTab) return;
+            
+            const rect = contactTab.getBoundingClientRect();
+            
+            if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                const contactContents = contactTab.querySelectorAll('h2, label, input, textarea, input[type="submit"]');
+                contactContents.forEach((item, index) => {
+                    if (!item) return;
+                    
+                    if (!item.classList.contains('animated')) {
+                        try {
+                            anime({
+                                targets: item,
+                                opacity: [0, 1],
+                                translateX: [10, 0],
+                                easing: 'easeOutExpo',
+                                duration: 500,
+                                delay: index * 100
+                            });
+                            item.classList.add('animated');
+                        } catch (error) {
+                            console.error("Animation error:", error);
+                        }
+                    }
+                });
+            } else {
+                const contactContents = contactTab.querySelectorAll('.animated');
+                contactContents.forEach(item => {
+                    item.classList.remove('animated');
+                    item.style.opacity = 0;
+                    item.style.transform = "translateX(10px)";
+                });
+            }
+        };
+        
+        window.addEventListener('scroll', fadeInContact);
+        window.addEventListener('load', fadeInContact);
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</body>
+</html>

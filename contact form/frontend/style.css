@@ -1,0 +1,93 @@
+.contact-me {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.contact-form {
+    display: flex;
+    
+    flex-direction: column;
+    width: 700px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+.contact-me h2 {
+    text-align: center;
+}
+
+.contact-form label {
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.contact-form input[type="text"],
+.contact-form textarea {
+    padding: 10px;
+    border: 2px solid #ff7b00;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: none;
+}
+
+.contact-form input[type="submit"] {
+    background-color: #ff7b00;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.contact-form input[type="submit"]:hover {
+    background-color: #1E90FF;
+    transition: .5s;
+}
+
+.contact-form input[type="submit"]:active {
+    opacity: 0.6;
+}
+.dark-mode .contact-form {
+    color: #ffffff;
+}
+
+.dark-mode .contact-form label {
+    color: #ffffff;
+}
+
+.dark-mode .contact-form input[type="text"],
+.dark-mode .contact-form textarea {
+    border: 2px solid #ff7b00;
+}
+
+.dark-mode .contact-form input[type="text"]:focus,
+.dark-mode .contact-form textarea:focus {
+    border-color: #1E90FF;
+}
+
+.dark-mode .contact-form input[type="submit"] {
+    background-color: #ff7b00;
+    color: #ffffff;
+}
+
+.dark-mode .contact-form input[type="submit"]:hover {
+    background-color: #1E90FF;
+}

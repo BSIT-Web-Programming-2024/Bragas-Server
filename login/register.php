@@ -1,36 +1,42 @@
 <?php
+// Database connection
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "users";
+$username = "root"; // Default XAMPP username
+$password = ""; // Default XAMPP password
+$dbname = "user_management";
 
+// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$username = $_POST['username'];
-$email = $_POST['email'];
-$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+// Handle registration
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = htmlspecialchars($_POST["username"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Secure password hashing
 
-// Check if the user already exists
-$sql_check = "SELECT * FROM users WHERE username='$username' OR email='$email'";
-$result = $conn->query($sql_check);
+    // Check if the user is already registered
+    $check_sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
+    $result = $conn->query($check_sql);
 
-if ($result->num_rows > 0) {
-    echo "User already registered";
-} else {
-    // Insert the new user
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-    if ($conn->query($sql) === TRUE) {
-        // Redirect to login page without any message
-        header("Location: index.html");
-        exit();
+    if ($result->num_rows > 0) {
+        echo "User is already registered.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Insert data into the database
+        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Registration successful!";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 
+// Close connection
 $conn->close();
 ?>

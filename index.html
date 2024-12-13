@@ -419,4 +419,58 @@ const fadeInSkills = () => {
     
 window.addEventListener('scroll', fadeInSkills);
 window.addEventListener('load', fadeInSkills);
+document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    message: formData.get('message')
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Create and show success message
+                    const successMessage = document.createElement('div');
+                    successMessage.classList.add('success-message');
+                    successMessage.textContent = data.message;
+                    successMessage.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 15px;
+                        border-radius: 5px;
+                        z-index: 1000;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    `;
+                    
+                    document.body.appendChild(successMessage);
+                    
+                    // Remove message after 3 seconds
+                    setTimeout(() => {
+                        document.body.removeChild(successMessage);
+                    }, 3000);
+                    
+                    // Reset form
+                    form.reset();
+                } else {
+                    throw new Error(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again.');
+            });
+        });
 </script>

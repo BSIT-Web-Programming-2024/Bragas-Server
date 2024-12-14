@@ -2,4 +2,4 @@ https://bsit-web-programming-2024.github.io/Bragas/
 
 https://bragas.vercel.app
 
-Database: https://tursodb.onrender.com/api/messages
+Received: https://tursodb.onrender.com/api/messages
